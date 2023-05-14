@@ -78,16 +78,14 @@ class AuthController extends Controller
     public function edit_profile(Request $request){
         if(auth()->user()){
             $validator=\Validator::make($request->all(),[
-                'id'=>'required',
-                'CompanyName'=>'required',
-                'ContactPersonName'=>'required',
-                'CompanyIndustry'=>'required',
-                'ContactPersonPhone'=>'required',
-                'email'=>'required|string|email|unique:users',
-                'CompanyAddress'=>'required',
-                'CompanyLocation'=>'required',
-                'CompanySize'=>'required',
-               // 'password'=>'required|string|confirmed|min:8',
+                'CompanyName',
+                'ContactPersonName',
+                'CompanyIndustry',
+                'ContactPersonPhone',
+                'email',
+                'CompanyAddress',
+                'CompanyLocation',
+                'CompanySize',
             ]);
             if($validator->fails())
             {
