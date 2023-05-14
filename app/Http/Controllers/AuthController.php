@@ -78,6 +78,7 @@ class AuthController extends Controller
     public function edit_profile(Request $request){
         if(auth()->user()){
             $validator=\Validator::make($request->all(),[
+                'id'=>'required',
                 'CompanyName',
                 'ContactPersonName',
                 'CompanyIndustry',
