@@ -79,14 +79,14 @@ class AuthController extends Controller
         if(auth()->user()){
             $validator=\Validator::make($request->all(),[
                 'id'=>'required',
-                'CompanyName',
-                'ContactPersonName',
-                'CompanyIndustry',
-                'ContactPersonPhone',
-                'email',
-                'CompanyAddress',
-                'CompanyLocation',
-                'CompanySize',
+                'CompanyName'=>'required',
+                'ContactPersonName'=>'required',
+                'CompanyIndustry'=>'required',
+                'ContactPersonPhone'=>'required',
+                'email'=>'required|string|email|unique:users',
+                'CompanyAddress'=>'required',
+                'CompanyLocation'=>'required',
+                'CompanySize'=>'required',
             ]);
             if($validator->fails())
             {
