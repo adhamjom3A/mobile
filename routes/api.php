@@ -14,9 +14,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
     Route::post('/register',[AuthController::class,'register']);
@@ -24,7 +26,6 @@ Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
     Route::get('/profile',[AuthController::class,'profile']);
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/edit_profile',[AuthController::class,'edit_profile']);
-
-
+    Route::post('/createCompany',[AuthController::class,'createCompany']);
 
 });

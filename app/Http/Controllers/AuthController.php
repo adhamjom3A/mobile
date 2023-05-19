@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Auth;
-use validator;
 use App\Models\User;
+use App\Models\Company;
+
 
 class AuthController extends Controller
 {
@@ -52,21 +54,21 @@ class AuthController extends Controller
         return $this->createNewToken($token);
 
     }
+
     public function createNewToken($token){
         return response()->json([
             'access_token'=>$token,
             'token_type'=>'bearer',
             'expires_in'=>auth()->factory()->getTTL()*60,
             'user'=>auth()->user()
-             
-
+            
         ]);
     }
 
     public function profile(){
         return response()->json(auth()->user());
     }
-
+ 
 
     public function logout(){
         auth()->logout();
@@ -111,6 +113,35 @@ class AuthController extends Controller
 
 
 
+    public function createCompany(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'CompanyName' => 'required',
+            'CompanyDescription' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        // Find the authenticated user
+        $user = Auth::user();
+
+        
+
+        // Create a new company
+        $company = new Company([
+            'name' => $request->input('CompanyName'),
+            'description' => $request->input('CompanyDescription'),
+        ]);
+
+        // Associate the company with the user
+        $user->company()->save($company);
+
+        return response()->json([
+            'message' => 'Company successfully created',
+            'company' => $company,
+        ], 201);
+    }
 
 }
