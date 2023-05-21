@@ -28,6 +28,7 @@ Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
     Route::post('/edit_profile',[AuthController::class,'edit_profile']);
     Route::post('/createCompany',[AuthController::class,'createCompany']);
     Route::get('/getCompany',[AuthController::class,'getCompany']);
+    Route::get('/getAllServices',[AuthController::class,'getAllServices']);
 
 
 });

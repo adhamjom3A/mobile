@@ -127,7 +127,6 @@ class AuthController extends Controller
         $user = Auth::user();
 
         
-
         // Create a new company
         $company = new Company([
             'name' => $request->input('CompanyName'),
@@ -164,7 +163,18 @@ class AuthController extends Controller
     ]);
 }
 
+public function getAllServices(Request $request){
+    if(Company::count()==0){
+        return response()->json(['success' => false, 'message' => "theres no services"], 400);
 
+    }
+    else{
+        $services = Company::all();
+        return response()->json([
+            'services'=>$services,
 
+        ]);  
+    }
+ }
 
 }
