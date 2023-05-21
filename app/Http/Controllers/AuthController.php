@@ -69,7 +69,6 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
  
-
     public function logout(){
         auth()->logout();
         return response()->json([
@@ -143,5 +142,29 @@ class AuthController extends Controller
             'company' => $company,
         ], 201);
     }
+
+
+
+    public function getCompany(Request $request)
+{
+    // Find the authenticated user
+    $user = Auth::user();
+
+    // Check if the user has a company associated with them
+    if (!$user->company) {
+        return response()->json(['success' => false, 'message' => 'User does not have a company'], 400);
+    }
+
+    // Retrieve the company associated with the user
+    $company = $user->company;
+
+    return response()->json([
+        'success' => true,
+        'company' => $company,
+    ]);
+}
+
+
+
 
 }
