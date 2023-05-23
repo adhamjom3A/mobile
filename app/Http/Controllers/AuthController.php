@@ -65,10 +65,30 @@ class AuthController extends Controller
         ]);
     }
 
+
     public function profile(){
         return response()->json(auth()->user());
     }
+
+    public function getUserById(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'id' => 'required|exists:users,id',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors()->toJson(), 400);
+    }
+
+    $user = User::find($request->id);
+
+    return response()->json([
+        'success' => true,
+        'user' => $user,
+    ]);
+}
  
+
     public function logout(){
         auth()->logout();
         return response()->json([

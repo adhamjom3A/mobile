@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
+    
     Route::post('/register',[AuthController::class,'register']);
     Route::post('/login',[AuthController::class,'login']);
     Route::get('/profile',[AuthController::class,'profile']);
@@ -29,6 +30,8 @@ Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
     Route::post('/createCompany',[AuthController::class,'createCompany']);
     Route::get('/getCompany',[AuthController::class,'getCompany']);
     Route::get('/getAllServices',[AuthController::class,'getAllServices']);
+    Route::get('/getUserById',[AuthController::class,'getUserById']);
+
 
 
 });
